@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <link rel="icon" href="https://tc.lqay.cn/LightPicture/2026/03/5f64e0f0f361e19c.png">
+    <link rel="icon" href="https://jsd.268682.xyz/gh/Kemeow0815/img@main/img/kemiao.gif">
     <title>画廊 - 流欺</title>
     <style>
         * {
@@ -12,11 +12,88 @@
             box-sizing: border-box;
         }
 
+        /* CSS 变量系统 - 明暗模式 */
+        :root {
+            /* 浅色模式默认 */
+            --bg-primary: #f4f6fa;
+            --bg-secondary: rgba(255, 255, 255, 0.88);
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-card-hover: white;
+            --bg-info: rgba(255, 255, 255, 0.85);
+            --bg-loader: rgba(255, 255, 255, 0.8);
+            --bg-filter: rgba(241, 245, 249, 0.8);
+            --bg-stats: rgba(238, 242, 255, 0.9);
+            --bg-end: rgba(255, 255, 240, 0.7);
+            --bg-backtop: rgba(255, 255, 255, 0.9);
+            --bg-backtop-hover: white;
+            --bg-theme-btn: rgba(255, 255, 255, 0.9);
+            --bg-theme-btn-hover: white;
+            --bg-theme-menu: rgba(255, 255, 255, 0.95);
+            
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-stats: #1e40af;
+            --text-end: #1e293b;
+            --text-placeholder: #94a3b8;
+            
+            --border-primary: rgba(0, 0, 0, 0.06);
+            --border-card: rgba(255, 255, 255, 0.5);
+            --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.1);
+            --shadow-card-hover: 0 20px 30px -12px rgba(0, 0, 0, 0.25);
+            --shadow-backtop: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --shadow-theme-btn: 0 4px 12px rgba(0, 0, 0, 0.15);
+            
+            --skeleton-bg: #e2e8f0;
+            --skeleton-shine: #f1f5f9;
+            --img-error-bg: #fee2e2;
+            --link-color: #1e40af;
+            --tag-bg: #eef2ff;
+        }
+
+        /* 深色模式 */
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: rgba(30, 41, 59, 0.88);
+            --bg-card: rgba(30, 41, 59, 0.92);
+            --bg-card-hover: rgba(51, 65, 85, 1);
+            --bg-info: rgba(30, 41, 59, 0.85);
+            --bg-loader: rgba(30, 41, 59, 0.8);
+            --bg-filter: rgba(51, 65, 85, 0.8);
+            --bg-stats: rgba(30, 58, 138, 0.9);
+            --bg-end: rgba(30, 41, 59, 0.7);
+            --bg-backtop: rgba(30, 41, 59, 0.9);
+            --bg-backtop-hover: rgba(51, 65, 85, 1);
+            --bg-theme-btn: rgba(30, 41, 59, 0.9);
+            --bg-theme-btn-hover: rgba(51, 65, 85, 1);
+            --bg-theme-menu: rgba(30, 41, 59, 0.95);
+            
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-stats: #60a5fa;
+            --text-end: #e2e8f0;
+            --text-placeholder: #64748b;
+            
+            --border-primary: rgba(255, 255, 255, 0.06);
+            --border-card: rgba(255, 255, 255, 0.1);
+            --shadow-card: 0 6px 18px rgba(0, 0, 0, 0.3);
+            --shadow-card-hover: 0 20px 30px -12px rgba(0, 0, 0, 0.5);
+            --shadow-backtop: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-theme-btn: 0 4px 12px rgba(0, 0, 0, 0.3);
+            
+            --skeleton-bg: #334155;
+            --skeleton-shine: #475569;
+            --img-error-bg: #7f1d1d;
+            --link-color: #60a5fa;
+            --tag-bg: rgba(30, 58, 138, 0.5);
+        }
+
         body {
             font-family: system-ui, -apple-system, 'Segoe UI', 'Roboto', sans-serif;
             position: relative;
-            background-color: #f4f6fa;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         /* 背景图层容器 - 双图层叠加 */
@@ -116,9 +193,10 @@
             position: sticky;
             top: 0;
             z-index: 50;
-            background: rgba(255, 255, 255, 0.88);
+            background: var(--bg-secondary);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid var(--border-primary);
+            transition: background-color 0.3s ease;
         }
 
         .nav-container {
@@ -138,8 +216,9 @@
             gap: 10px;
             font-weight: 700;
             font-size: 1.1rem;
-            color: #0f172a;
+            color: var(--text-primary);
             text-decoration: none;
+            transition: color 0.3s ease;
         }
 
         .logo-icon {
@@ -157,10 +236,11 @@
         .filter-bar {
             display: flex;
             gap: 8px;
-            background: rgba(241, 245, 249, 0.8);
+            background: var(--bg-filter);
             backdrop-filter: blur(4px);
             padding: 5px;
             border-radius: 60px;
+            transition: background-color 0.3s ease;
         }
 
         .filter-btn {
@@ -172,7 +252,7 @@
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s;
-            color: #475569;
+            color: var(--text-secondary);
             display: flex;
             align-items: center;
             gap: 6px;
@@ -184,19 +264,20 @@
         }
 
         .filter-btn.active {
-            background: white;
-            color: #0f172a;
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
         }
 
         .stats-display {
-            background: rgba(238, 242, 255, 0.9);
+            background: var(--bg-stats);
             backdrop-filter: blur(4px);
             padding: 6px 18px;
             border-radius: 40px;
             font-size: 0.8rem;
             font-weight: 500;
-            color: #1e40af;
+            color: var(--text-stats);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         .gallery-wrapper {
@@ -206,13 +287,14 @@
         }
 
         .info-card {
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--bg-info);
             backdrop-filter: blur(8px);
             border-radius: 28px;
             padding: 20px 28px;
             margin-bottom: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid var(--border-card);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .info-title {
@@ -226,7 +308,8 @@
         .info-desc {
             margin-top: 12px;
             font-size: 0.85rem;
-            color: #475569;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
         }
 
         .waterfall {
@@ -246,29 +329,29 @@
             gap: 24px;
         }
         .gallery-card {
-            background: rgba(255, 255, 255, 0.92);
+            background: var(--bg-card);
             backdrop-filter: blur(4px);
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow-card);
             transition: all 0.25s ease;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--border-card);
             width: 100%;
         }
         .gallery-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 20px 30px -12px rgba(0, 0, 0, 0.25);
-            background: white;
+            box-shadow: var(--shadow-card-hover);
+            background: var(--bg-card-hover);
         }
         .img-container {
             position: relative;
             width: 100%;
-            background: #e2e8f0;
+            background: var(--skeleton-bg);
             overflow: hidden;
         }
         .img-container.skeleton {
-            background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+            background: linear-gradient(90deg, var(--skeleton-bg) 25%, var(--skeleton-shine) 50%, var(--skeleton-bg) 75%);
             background-size: 200% 100%;
             animation: shimmer 1.2s infinite;
         }
@@ -295,7 +378,7 @@
             padding: 48px 20px 32px;
         }
         .loader-box {
-            background: rgba(255, 255, 255, 0.8);
+            background: var(--bg-loader);
             backdrop-filter: blur(8px);
             padding: 12px 28px;
             border-radius: 60px;
@@ -304,12 +387,14 @@
             align-items: center;
             font-size: 0.9rem;
             font-weight: 500;
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .spinner {
             width: 18px;
             height: 18px;
-            border: 2px solid #cbd5e1;
-            border-top-color: #3b82f6;
+            border: 2px solid var(--text-placeholder);
+            border-top-color: var(--text-stats);
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
         }
@@ -317,11 +402,12 @@
         .end-message {
             text-align: center;
             padding: 40px;
-            color: #1e293b;
-            background: rgba(255,255,240,0.7);
+            color: var(--text-end);
+            background: var(--bg-end);
             border-radius: 48px;
             backdrop-filter: blur(4px);
             font-size: 0.9rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         .preview-modal {
             position: fixed;
@@ -401,28 +487,154 @@
             position: fixed;
             bottom: 28px;
             right: 28px;
-            background: rgba(255,255,255,0.9);
+            background: var(--bg-backtop);
             border-radius: 40px;
             padding: 10px 20px;
             font-size: 0.8rem;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            box-shadow: var(--shadow-backtop);
             cursor: pointer;
             z-index: 99;
             border: none;
             backdrop-filter: blur(4px);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
         }
         .back-top:hover {
-            background: white;
+            background: var(--bg-backtop-hover);
             transform: scale(1.02);
+        }
+
+        /* 主题切换按钮 */
+        .theme-toggle {
+            position: fixed;
+            bottom: 28px;
+            right: 100px;
+            width: 44px;
+            height: 44px;
+            background: var(--bg-theme-btn);
+            border-radius: 50%;
+            border: none;
+            box-shadow: var(--shadow-theme-btn);
+            cursor: pointer;
+            z-index: 99;
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .theme-toggle:hover {
+            background: var(--bg-theme-btn-hover);
+            transform: scale(1.05);
+        }
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+            color: #0f172a;
+        }
+        [data-theme="dark"] .theme-toggle svg {
+            color: #f1f5f9;
+        }
+
+        /* 主题选择菜单 */
+        .theme-menu {
+            position: fixed;
+            bottom: 80px;
+            right: 28px;
+            background: var(--bg-theme-menu);
+            backdrop-filter: blur(12px);
+            border-radius: 16px;
+            padding: 8px;
+            box-shadow: var(--shadow-theme-btn);
+            z-index: 100;
+            display: none;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 140px;
+            border: 1px solid var(--border-primary);
+            transition: background-color 0.3s ease;
+        }
+        .theme-menu.active {
+            display: flex;
+        }
+        .theme-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #0f172a;
+            transition: background-color 0.2s ease, color 0.2s ease;
+            text-align: left;
+            font-weight: 500;
+        }
+        [data-theme="dark"] .theme-option {
+            color: #f1f5f9;
+        }
+        .theme-option:hover {
+            background: var(--bg-filter);
+        }
+        .theme-option.active {
+            background: var(--bg-stats);
+            color: var(--text-stats);
+        }
+        .theme-option svg {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
         }
         @media (max-width: 768px) {
             .waterfall-columns { gap: 16px; }
             .waterfall-col { gap: 16px; }
             .filter-btn { padding: 5px 14px; font-size: 0.7rem; }
+            .theme-toggle {
+                right: 90px;
+                width: 40px;
+                height: 40px;
+            }
+            .theme-toggle svg {
+                width: 20px;
+                height: 20px;
+            }
+            .theme-menu {
+                right: 24px;
+                bottom: 76px;
+            }
+            .back-top {
+                right: 24px;
+                padding: 8px 16px;
+                font-size: 0.75rem;
+            }
         }
         @media (max-width: 640px) {
             .waterfall-columns { gap: 12px; }
             .waterfall-col { gap: 12px; }
+            .theme-toggle {
+                right: 86px;
+                width: 38px;
+                height: 38px;
+            }
+            .theme-toggle svg {
+                width: 18px;
+                height: 18px;
+            }
+            .back-top {
+                right: 20px;
+                bottom: 24px;
+                padding: 8px 14px;
+            }
+            .theme-toggle {
+                right: 82px;
+                bottom: 24px;
+            }
+            .theme-menu {
+                right: 20px;
+                bottom: 72px;
+            }
         }
     </style>
 </head>
@@ -436,9 +648,9 @@
     <div class="nav-container">
         <a href="#" class="logo-area">
             <div class="logo-icon">
-                <img src="https://tc.lqay.cn/LightPicture/2026/03/5f64e0f0f361e19c.png" alt="logo">
+                <img src="https://jsd.268682.xyz/gh/Kemeow0815/img@main/img/kemiao.gif" alt="logo">
             </div>
-            <span>画廊 - 流欺</span>
+            <span>画廊 - Mortti</span>
         </a>
         <div class="filter-bar" id="filterTabs">
             <button class="filter-btn active" data-type="all">全部</button>
@@ -454,11 +666,11 @@
     <div class="info-card">
         <div class="info-title">
             <h2 style="font-weight: 600;">🎨 画廊</h2>
-            <span style="background:#eef2ff; padding:4px 14px; border-radius:50px; font-size:0.7rem;">点击图片预览 · 支持下载</span>
+            <span style="background:var(--tag-bg); color: var(--text-primary); padding:4px 14px; border-radius:50px; font-size:0.7rem; transition: background-color 0.3s ease, color 0.3s ease;">点击图片预览 · 支持下载</span>
         </div>
         <div class="info-desc" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-top: 8px;">
-            <span>📌 图片源：<strong>https://github.com/lqay-cn/cdn</strong></span>
-            <a href="https://blog.lqay.cn" target="_blank" rel="noopener noreferrer" style="background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(8px); color: #1e40af; padding: 6px 20px; border-radius: 40px; text-decoration: none; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; border: 1px solid rgba(0, 0, 0, 0.06); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+            <span>📌 图片源：<strong>https://github.com/Moretti815/gallery-img</strong></span>
+            <a href="https://blog.kemeow.top" target="_blank" rel="noopener noreferrer" style="background: var(--bg-card); backdrop-filter: blur(8px); color: var(--link-color); padding: 6px 20px; border-radius: 40px; text-decoration: none; font-size: 0.8rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; border: 1px solid var(--border-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z" fill="currentColor"/>
                 </svg>
@@ -479,6 +691,29 @@
 
 <button id="backTopBtn" class="back-top" style="display: none;">↑ 顶部</button>
 
+<!-- 主题切换按钮 -->
+<button id="themeToggleBtn" class="theme-toggle" title="切换主题">
+    <svg id="themeIconLight" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32" style="display: none;"><g fill="none"><path fill="#FF822D" d="M13.638 3.202a2.936 2.936 0 0 1 4.724 0a2.94 2.94 0 0 0 3.25 1.055a2.936 2.936 0 0 1 3.822 2.778a2.94 2.94 0 0 0 2.008 2.763a2.936 2.936 0 0 1 1.46 4.494a2.94 2.94 0 0 0 0 3.416a2.936 2.936 0 0 1-1.46 4.494a2.94 2.94 0 0 0-2.008 2.763a2.936 2.936 0 0 1-3.823 2.778a2.94 2.94 0 0 0-3.249 1.055a2.936 2.936 0 0 1-4.724 0a2.94 2.94 0 0 0-3.25-1.055a2.936 2.936 0 0 1-3.822-2.778a2.94 2.94 0 0 0-2.008-2.763a2.936 2.936 0 0 1-1.46-4.494a2.94 2.94 0 0 0 0-3.416a2.936 2.936 0 0 1 1.46-4.494a2.94 2.94 0 0 0 2.008-2.763a2.936 2.936 0 0 1 3.823-2.778a2.94 2.94 0 0 0 3.249-1.055"/><path fill="#FCD53F" d="M25.062 21.232c-2.89 5.005-9.29 6.72-14.294 3.83s-6.72-9.29-3.83-14.294s9.29-6.72 14.294-3.83s6.72 9.29 3.83 14.294"/></g></svg>
+    <svg id="themeIconDark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="display: none;"><g fill="none"><path fill="#000" d="M9.643 3.921a.9.9 0 0 1 .778-.762c.37-.096 1.499-.25 2.98-.09c.287.037.816.254.88.826a8.4 8.4 0 0 1 2.594 1.238c.265-.158.762-.285 1.26.212c.339.297 1.238 1.255 2.133 2.732c.186.318.387 1.043-.211 1.435a8.4 8.4 0 0 1 .349 3.102c.291.143.662.46.582.98c-.02.36-.227 1.376-.857 2.588a.99.99 0 0 1-1.096.45a8.5 8.5 0 0 1-1.35 1.572c.127.297.185.858-.365 1.234a10.2 10.2 0 0 1-2.86 1.43c-.317.09-.995.105-1.296-.546a8.5 8.5 0 0 1-1.573.069c-.264.646-.984.656-1.334.572a12.2 12.2 0 0 1-3.23-1.334a1.016 1.016 0 0 1-.513-1.26a8.7 8.7 0 0 1-1.34-1.456c-.671.185-1.116-.381-1.26-.71a12.1 12.1 0 0 1-.9-3.372c-.09-.651.276-.99.578-1.128A8.6 8.6 0 0 1 4.1 9.088c-.46-.397-.307-.995-.159-1.265a10.4 10.4 0 0 1 1.933-2.457c.434-.423.9-.317 1.164-.158A8.4 8.4 0 0 1 9.643 3.92"/><path fill="#d9b86c" d="M13.323 4.022a6.8 6.8 0 0 0-2.764.052l-.19.805l3.271-.063zm4.012 1.927l-.677.285l2.298 3.31l.455-.842a7.8 7.8 0 0 0-2.076-2.753m1.97 9.683l-.868.148l.868-2.928l.688.609a8.6 8.6 0 0 1-.688 2.17m-5.241 4.272l-.726-.583l3.405-1.757v1.059a7.8 7.8 0 0 1-2.68 1.28m-3.415.111l.609-.635l-3.854-1.726v1.022a8 8 0 0 0 3.245 1.339m-5.712-4.098h.83L4.752 12.01l-.804.561c.174 1.811.736 2.986.99 3.346M4.75 8.373l.466.784L7.515 6.35l-.948-.302a7.3 7.3 0 0 0-1.816 2.324"/><path fill="#efda8d" d="M12 19.454c4.14 0 7.496-3.351 7.496-7.486s-3.356-7.486-7.497-7.486c-4.14 0-7.496 3.352-7.496 7.486s3.356 7.486 7.496 7.486"/><path fill="#f4eebe" d="M11.999 18.168c.81 0 1.583-.16 2.292-.434c.794.2 1.906-.17 2.811-1.017c1.15-1.08 1.552-2.53.943-3.314a6.2 6.2 0 0 0-.217-3.6c.122-.773-.228-1.779-.99-2.615c-.921-1.017-2.144-1.456-2.965-1.144a6.22 6.22 0 0 0-8.09 5.919c0 1.525.551 2.922 1.467 4.002a2.9 2.9 0 0 0 1.445 1.96c.953.57 2.028.63 2.711.21q.293.033.593.033"/><path fill="#c29e58" d="M17.227 9.816c.452-.429.108-1.524-.767-2.447c-.876-.923-1.952-1.323-2.404-.894s-.108 1.524.768 2.446c.875.923 1.951 1.323 2.403.895"/><path fill="#a07e41" d="M13.873 7.192c.535-.053 1.329.35 2.012 1.059c.481.468.813 1.069.953 1.726c-.54.053-1.334-.35-2.012-1.059a3.4 3.4 0 0 1-.953-1.726"/><path fill="#c29e58" d="M7.89 16.016c-.221.444.334 1.17 1.241 1.619s1.822.454 2.043.009s-.335-1.17-1.241-1.62s-1.822-.453-2.043-.008"/><path fill="#a07e41" d="M11.12 17.05c-.387.185-1.09.106-1.79-.243a2.7 2.7 0 0 1-1.185-1.027c.386-.186 1.09-.106 1.789.243a2.7 2.7 0 0 1 1.186 1.027"/><path fill="#c29e58" d="M13.634 16.908c.65.725 2.077.51 3.187-.482s1.482-2.383.833-3.108c-.65-.725-2.076-.51-3.186.482s-1.483 2.383-.834 3.108"/><path fill="#a07e41" d="M16.923 12.916c0 .624-.53 1.535-1.408 2.313c-.742.662-1.541 1.07-2.15 1.138c-.254-.667.185-1.73 1.112-2.551c.82-.742 1.795-1.075 2.446-.9"/><path fill="#c29e58" d="M9.558 13.556c1.603 0 2.902-1.351 2.902-3.018s-1.3-3.017-2.902-3.017s-2.9 1.35-2.9 3.017s1.298 3.018 2.9 3.018"/><path fill="#a07e41" d="M9.564 13.556a2.966 2.966 0 0 0 2.896-3.017c0-.53-.133-1.033-.366-1.472a2.8 2.8 0 0 0-.677-.08a2.965 2.965 0 0 0-2.901 3.018c0 .53.132 1.032.37 1.472c.212.053.44.08.673.08z"/></g></svg>
+    <svg id="themeIconAuto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M17 1H3a2 2 0 0 0-2 2v9h2V3h14Z"/><path fill="currentColor" d="M21 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5.53v1.53H11V22h6v-1.48h-1.52V19H21a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 12H7V7h14Z"/></svg>
+</button>
+
+<!-- 主题选择菜单 -->
+<div id="themeMenu" class="theme-menu">
+    <button class="theme-option" data-theme="light">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 32 32"><g fill="none"><path fill="#FF822D" d="M13.638 3.202a2.936 2.936 0 0 1 4.724 0a2.94 2.94 0 0 0 3.25 1.055a2.936 2.936 0 0 1 3.822 2.778a2.94 2.94 0 0 0 2.008 2.763a2.936 2.936 0 0 1 1.46 4.494a2.94 2.94 0 0 0 0 3.416a2.936 2.936 0 0 1-1.46 4.494a2.94 2.94 0 0 0-2.008 2.763a2.936 2.936 0 0 1-3.823 2.778a2.94 2.94 0 0 0-3.249 1.055a2.936 2.936 0 0 1-4.724 0a2.94 2.94 0 0 0-3.25-1.055a2.936 2.936 0 0 1-3.822-2.778a2.94 2.94 0 0 0-2.008-2.763a2.936 2.936 0 0 1-1.46-4.494a2.94 2.94 0 0 0 0-3.416a2.936 2.936 0 0 1 1.46-4.494a2.94 2.94 0 0 0 2.008-2.763a2.936 2.936 0 0 1 3.823-2.778a2.94 2.94 0 0 0 3.249-1.055"/><path fill="#FCD53F" d="M25.062 21.232c-2.89 5.005-9.29 6.72-14.294 3.83s-6.72-9.29-3.83-14.294s9.29-6.72 14.294-3.83s6.72 9.29 3.83 14.294"/></g></svg>
+        <span>浅色模式</span>
+    </button>
+    <button class="theme-option" data-theme="dark">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><g fill="none"><path fill="#000" d="M9.643 3.921a.9.9 0 0 1 .778-.762c.37-.096 1.499-.25 2.98-.09c.287.037.816.254.88.826a8.4 8.4 0 0 1 2.594 1.238c.265-.158.762-.285 1.26.212c.339.297 1.238 1.255 2.133 2.732c.186.318.387 1.043-.211 1.435a8.4 8.4 0 0 1 .349 3.102c.291.143.662.46.582.98c-.02.36-.227 1.376-.857 2.588a.99.99 0 0 1-1.096.45a8.5 8.5 0 0 1-1.35 1.572c.127.297.185.858-.365 1.234a10.2 10.2 0 0 1-2.86 1.43c-.317.09-.995.105-1.296-.546a8.5 8.5 0 0 1-1.573.069c-.264.646-.984.656-1.334.572a12.2 12.2 0 0 1-3.23-1.334a1.016 1.016 0 0 1-.513-1.26a8.7 8.7 0 0 1-1.34-1.456c-.671.185-1.116-.381-1.26-.71a12.1 12.1 0 0 1-.9-3.372c-.09-.651.276-.99.578-1.128A8.6 8.6 0 0 1 4.1 9.088c-.46-.397-.307-.995-.159-1.265a10.4 10.4 0 0 1 1.933-2.457c.434-.423.9-.317 1.164-.158A8.4 8.4 0 0 1 9.643 3.92"/><path fill="#d9b86c" d="M13.323 4.022a6.8 6.8 0 0 0-2.764.052l-.19.805l3.271-.063zm4.012 1.927l-.677.285l2.298 3.31l.455-.842a7.8 7.8 0 0 0-2.076-2.753m1.97 9.683l-.868.148l.868-2.928l.688.609a8.6 8.6 0 0 1-.688 2.17m-5.241 4.272l-.726-.583l3.405-1.757v1.059a7.8 7.8 0 0 1-2.68 1.28m-3.415.111l.609-.635l-3.854-1.726v1.022a8 8 0 0 0 3.245 1.339m-5.712-4.098h.83L4.752 12.01l-.804.561c.174 1.811.736 2.986.99 3.346M4.75 8.373l.466.784L7.515 6.35l-.948-.302a7.3 7.3 0 0 0-1.816 2.324"/><path fill="#efda8d" d="M12 19.454c4.14 0 7.496-3.351 7.496-7.486s-3.356-7.486-7.497-7.486c-4.14 0-7.496 3.352-7.496 7.486s3.356 7.486 7.496 7.486"/><path fill="#f4eebe" d="M11.999 18.168c.81 0 1.583-.16 2.292-.434c.794.2 1.906-.17 2.811-1.017c1.15-1.08 1.552-2.53.943-3.314a6.2 6.2 0 0 0-.217-3.6c.122-.773-.228-1.779-.99-2.615c-.921-1.017-2.144-1.456-2.965-1.144a6.22 6.22 0 0 0-8.09 5.919c0 1.525.551 2.922 1.467 4.002a2.9 2.9 0 0 0 1.445 1.96c.953.57 2.028.63 2.711.21q.293.033.593.033"/><path fill="#c29e58" d="M17.227 9.816c.452-.429.108-1.524-.767-2.447c-.876-.923-1.952-1.323-2.404-.894s-.108 1.524.768 2.446c.875.923 1.951 1.323 2.403.895"/><path fill="#a07e41" d="M13.873 7.192c.535-.053 1.329.35 2.012 1.059c.481.468.813 1.069.953 1.726c-.54.053-1.334-.35-2.012-1.059a3.4 3.4 0 0 1-.953-1.726"/><path fill="#c29e58" d="M7.89 16.016c-.221.444.334 1.17 1.241 1.619s1.822.454 2.043.009s-.335-1.17-1.241-1.62s-1.822-.453-2.043-.008"/><path fill="#a07e41" d="M11.12 17.05c-.387.185-1.09.106-1.79-.243a2.7 2.7 0 0 1-1.185-1.027c.386-.186 1.09-.106 1.789.243a2.7 2.7 0 0 1 1.186 1.027"/><path fill="#c29e58" d="M13.634 16.908c.65.725 2.077.51 3.187-.482s1.482-2.383.833-3.108c-.65-.725-2.076-.51-3.186.482s-1.483 2.383-.834 3.108"/><path fill="#a07e41" d="M16.923 12.916c0 .624-.53 1.535-1.408 2.313c-.742.662-1.541 1.07-2.15 1.138c-.254-.667.185-1.73 1.112-2.551c.82-.742 1.795-1.075 2.446-.9"/><path fill="#c29e58" d="M9.558 13.556c1.603 0 2.902-1.351 2.902-3.018s-1.3-3.017-2.902-3.017s-2.9 1.35-2.9 3.017s1.298 3.018 2.9 3.018"/><path fill="#a07e41" d="M9.564 13.556a2.966 2.966 0 0 0 2.896-3.017c0-.53-.133-1.033-.366-1.472a2.8 2.8 0 0 0-.677-.08a2.965 2.965 0 0 0-2.901 3.018c0 .53.132 1.032.37 1.472c.212.053.44.08.673.08z"/></g></svg>
+        <span>深色模式</span>
+    </button>
+    <button class="theme-option" data-theme="auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M17 1H3a2 2 0 0 0-2 2v9h2V3h14Z"/><path fill="currentColor" d="M21 5H7a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5.53v1.53H11V22h6v-1.48h-1.52V19H21a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m0 12H7V7h14Z"/></svg>
+        <span>跟随系统</span>
+    </button>
+</div>
+
 <div id="previewModal" class="preview-modal">
     <div class="preview-box">
         <button class="close-preview" id="closePreviewBtn">✕</button>
@@ -493,6 +728,98 @@
 
 <script>
     (function(){
+        // ========== 主题切换功能 ==========
+        const themeToggleBtn = document.getElementById('themeToggleBtn');
+        const themeMenu = document.getElementById('themeMenu');
+        const themeIconLight = document.getElementById('themeIconLight');
+        const themeIconDark = document.getElementById('themeIconDark');
+        const themeIconAuto = document.getElementById('themeIconAuto');
+        const themeOptions = document.querySelectorAll('.theme-option');
+        const html = document.documentElement;
+        
+        // 获取系统主题偏好
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        
+        // 获取实际应用的主题
+        function getAppliedTheme(savedTheme) {
+            if (savedTheme === 'auto' || !savedTheme) {
+                return getSystemTheme();
+            }
+            return savedTheme;
+        }
+        
+        // 更新主题图标显示
+        function updateThemeIcon(theme) {
+            const appliedTheme = getAppliedTheme(theme);
+            themeIconLight.style.display = 'none';
+            themeIconDark.style.display = 'none';
+            themeIconAuto.style.display = 'none';
+            
+            if (theme === 'light') {
+                themeIconLight.style.display = 'block';
+            } else if (theme === 'dark') {
+                themeIconDark.style.display = 'block';
+            } else {
+                themeIconAuto.style.display = 'block';
+            }
+        }
+        
+        // 应用主题
+        function applyTheme(theme) {
+            const appliedTheme = getAppliedTheme(theme);
+            if (appliedTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+            } else {
+                html.removeAttribute('data-theme');
+            }
+            updateThemeIcon(theme);
+            updateThemeMenuActive(theme);
+        }
+        
+        // 更新菜单选中状态
+        function updateThemeMenuActive(currentTheme) {
+            themeOptions.forEach(option => {
+                option.classList.toggle('active', option.dataset.theme === currentTheme);
+            });
+        }
+        
+        // 切换主题菜单显示
+        themeToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            themeMenu.classList.toggle('active');
+        });
+        
+        // 点击外部关闭菜单
+        document.addEventListener('click', (e) => {
+            if (!themeMenu.contains(e.target) && e.target !== themeToggleBtn) {
+                themeMenu.classList.remove('active');
+            }
+        });
+        
+        // 主题选项点击
+        themeOptions.forEach(option => {
+            option.addEventListener('click', () => {
+                const theme = option.dataset.theme;
+                localStorage.setItem('gallery-theme', theme);
+                applyTheme(theme);
+                themeMenu.classList.remove('active');
+            });
+        });
+        
+        // 监听系统主题变化
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            const savedTheme = localStorage.getItem('gallery-theme') || 'auto';
+            if (savedTheme === 'auto') {
+                applyTheme('auto');
+            }
+        });
+        
+        // 初始化主题
+        const savedTheme = localStorage.getItem('gallery-theme') || 'auto';
+        applyTheme(savedTheme);
+        
         // ========== 平移背景图切换（新图从外部移入） ==========
         const BG_API_URL = 'https://api.lqay.cn/api/zxsjt/?cat=heng';
         let bgInterval = null;
@@ -640,7 +967,7 @@
             img.loading = 'lazy';
             img.src = url;
             img.onload = () => { img.classList.add('loaded'); imgWrap.classList.remove('skeleton'); };
-            img.onerror = () => { imgWrap.classList.remove('skeleton'); imgWrap.style.backgroundColor = '#fee2e2'; img.classList.add('loaded'); };
+            img.onerror = () => { imgWrap.classList.remove('skeleton'); imgWrap.style.backgroundColor = 'var(--img-error-bg)'; img.classList.add('loaded'); };
             imgWrap.appendChild(img);
             card.appendChild(imgWrap);
             card.addEventListener('click', (e) => {
